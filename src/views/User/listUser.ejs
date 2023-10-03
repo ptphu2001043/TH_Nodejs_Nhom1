@@ -1,0 +1,61 @@
+<h1>
+    <%= data.title %>
+</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Tài khoản</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Email</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Quyền</th>
+            <th scope="col">Cấu hình</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0;i<data.rows.length;i++) { %>
+            <tr>
+                <th scope="row">
+                    <%= i + 1 %>
+                </th>
+                <td>
+                    <%= data.rows[i].fullname %>
+                </td>
+                <td>
+                    <%= data.rows[i].username %>
+                </td>
+                <td>
+                    <%= data.rows[i].sex %>
+                </td>
+                <td>
+                    <%= data.rows[i].email %>
+                </td>
+                <td>
+                    <%= data.rows[i].address %>
+                </td>
+                <td>
+                    <% if(data.rows[i].id_group==1) { %>
+                        User
+                        <% }else { %>
+                            Admin
+                            <% } %>
+                </td>
+                <td class="d-flex">
+                    <a class="p-1" href="/detail-user/<%= data.rows[i].username %>"><i class="fa-solid fa-eye"></i></a>
+                    <a class="p-1" href="/edit-user/<%= data.rows[i].username %>"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    <form action="/del-user" method="post" class="p-1">
+                        <input type="hidden" value="<%= data.rows[i].username %>" name="username">
+                        <label for="<%= data.rows[i].username %>">
+                            <i class="fa-solid fa-trash"></i>
+                        </label>
+                        <input id="<%= data.rows[i].username %>" type="submit" value="Xoá" style="display: none;" />
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+    </tbody>
+</table>
